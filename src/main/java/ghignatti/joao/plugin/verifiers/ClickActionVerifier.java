@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 public class ClickActionVerifier {
     private static ClickActionVerifier ourInstance = new ClickActionVerifier();
@@ -45,7 +44,7 @@ public class ClickActionVerifier {
 
         int slot = event.getRawSlot();
         Inventory inv = event.getInventory();
-        ItemStack item = event.getCursor();
+        InventoryAction inventoryAction = event.getAction();
 
         if(aux.equals(p)) {
 
@@ -55,7 +54,7 @@ public class ClickActionVerifier {
 
                 p.sendMessage("Chest click");
 
-                if(item != null) {
+                if(inventoryAction == InventoryAction.PLACE_ALL) {
 
                     p.sendMessage("Move to other inventory");
 
@@ -76,7 +75,7 @@ public class ClickActionVerifier {
 
                 t.sendMessage("Chest click");
 
-                if(item != null) {
+                if(inventoryAction == InventoryAction.PLACE_ALL) {
 
                     t.sendMessage("Move to other inventory");
 
