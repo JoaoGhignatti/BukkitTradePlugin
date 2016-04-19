@@ -24,6 +24,7 @@ public class SlotFinder {
                     if(p.getOpenInventory().getTopInventory() != null) {
 
                         if (p.getOpenInventory().getTopInventory().getItem(i) == item) {
+
                             return i;
                         }
                     }
@@ -38,6 +39,7 @@ public class SlotFinder {
                     if(p.getOpenInventory().getTopInventory() != null) {
 
                         if (p.getOpenInventory().getTopInventory().getItem(i) == item) {
+
                             return i;
                         }
                     }
