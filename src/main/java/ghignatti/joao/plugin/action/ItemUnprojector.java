@@ -27,13 +27,23 @@ public class ItemUnprojector {
 
             p.sendMessage("aux unproject p");
 
-            t.getOpenInventory().getTopInventory().removeItem(item);
+            if(SlotFinder.getInstance().getSearchSlot(t, "target", item, true) != -1) {
+
+                p.sendMessage("Slot != -1");
+
+                t.getOpenInventory().getTopInventory().removeItem(item);
+            }
 
         } else if(t.equals(aux)) {
 
             t.sendMessage("aux unproject t");
 
-            p.getOpenInventory().getTopInventory().removeItem(item);
+            if(SlotFinder.getInstance().getSearchSlot(p, "sender", item, true) != -1) {
+
+                t.sendMessage("Slot != -1");
+
+                p.getOpenInventory().getTopInventory().removeItem(item);
+            }
 
         }
     }

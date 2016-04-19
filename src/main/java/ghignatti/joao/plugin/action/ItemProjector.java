@@ -25,7 +25,7 @@ public class ItemProjector {
 
             p.sendMessage("aux project p");
 
-            int index = SlotFinder.getInstance().getSearchSlot(t, "target", null);
+            int index = SlotFinder.getInstance().getSearchSlot(t, "target", null, false);
 
             p.sendMessage("index " + index);
 
@@ -40,7 +40,7 @@ public class ItemProjector {
 
             t.sendMessage("aux project t");
 
-            int index = SlotFinder.getInstance().getSearchSlot(p, "sender", null);
+            int index = SlotFinder.getInstance().getSearchSlot(p, "sender", null, false);
 
             t.sendMessage("index " + index);
 

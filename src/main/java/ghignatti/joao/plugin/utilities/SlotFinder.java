@@ -13,7 +13,7 @@ public class SlotFinder {
     private SlotFinder() {
     }
 
-    private int searchSlot(Player p, String player, ItemStack item) {
+    private int searchSlot(Player p, String player, ItemStack item, boolean unproject) {
 
         if(player.equals("sender")) {
 
@@ -23,9 +23,16 @@ public class SlotFinder {
 
                     if(p.getOpenInventory().getTopInventory() != null) {
 
-                        if (p.getOpenInventory().getTopInventory().getItem(i) == item) {
+                        if (p.getOpenInventory().getTopInventory().getItem(i) == null) {
 
                             return i;
+
+                        } else if(unproject) {
+
+                            if(p.getOpenInventory().getTopInventory().getItem(i).getType() == item.getType()) {
+
+                                return i;
+                            }
                         }
                     }
                 }
@@ -38,9 +45,16 @@ public class SlotFinder {
 
                     if(p.getOpenInventory().getTopInventory() != null) {
 
-                        if (p.getOpenInventory().getTopInventory().getItem(i) == item) {
+                        if (p.getOpenInventory().getTopInventory().getItem(i) == null) {
 
                             return i;
+
+                        } else if(unproject) {
+
+                            if(p.getOpenInventory().getTopInventory().getItem(i).getType() == item.getType()) {
+
+                                return i;
+                            }
                         }
                     }
                 }
@@ -50,7 +64,7 @@ public class SlotFinder {
         return -1;
     }
 
-    public int getSearchSlot(Player p, String player, ItemStack item) {
-        return searchSlot(p, player, item);
+    public int getSearchSlot(Player p, String player, ItemStack item, boolean unproject) {
+        return searchSlot(p, player, item, unproject);
     }
 }
