@@ -23,7 +23,7 @@ public class SlotFinder {
 
                     if(p.getOpenInventory().getTopInventory() != null) {
 
-                        if (p.getOpenInventory().getTopInventory().getItem(i) == null) {
+                        if (p.getOpenInventory().getTopInventory().getItem(i) == item) {
 
                             return i;
 
@@ -45,15 +45,21 @@ public class SlotFinder {
 
                     if(p.getOpenInventory().getTopInventory() != null) {
 
-                        if (p.getOpenInventory().getTopInventory().getItem(i) == null) {
+                        if (!unproject) {
 
-                            return i;
-
-                        } else if(unproject) {
-
-                            if(p.getOpenInventory().getTopInventory().getItem(i).getType() == item.getType()) {
+                            if(p.getOpenInventory().getTopInventory().getItem(i) == item) {
 
                                 return i;
+                            }
+
+                        } else {
+
+                            if(p.getOpenInventory().getTopInventory().getItem(i) != null) {
+
+                                if(p.getOpenInventory().getTopInventory().getItem(i).getType() == item.getType()) {
+
+                                    return i;
+                                }
                             }
                         }
                     }

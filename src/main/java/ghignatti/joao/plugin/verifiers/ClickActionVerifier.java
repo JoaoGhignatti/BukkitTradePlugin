@@ -54,15 +54,20 @@ public class ClickActionVerifier {
 
                 p.sendMessage("Chest click");
 
-                if(inventoryAction == InventoryAction.PLACE_ALL) {
+                if(inventoryAction == InventoryAction.PLACE_ALL ||
+                        inventoryAction == InventoryAction.PLACE_ONE ||
+                        inventoryAction == InventoryAction.PLACE_SOME) {
 
                     p.sendMessage("Move to other inventory");
 
                     ItemProjector.getInstance().doProjection(event, p, t);
 
-                } else {
+                } else if(inventoryAction == InventoryAction.PICKUP_ALL ||
+                        inventoryAction == InventoryAction.PICKUP_HALF ||
+                        inventoryAction == InventoryAction.PICKUP_ONE ||
+                        inventoryAction == InventoryAction.PICKUP_SOME) {
 
-                    p.sendMessage("Pick all");
+                    p.sendMessage("Pick");
 
                     ItemUnprojector.getInstance().doUnprojection(event, p, t);
                 }

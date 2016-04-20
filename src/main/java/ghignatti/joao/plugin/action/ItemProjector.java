@@ -18,10 +18,15 @@ public class ItemProjector {
 
     public void doProjection(InventoryClickEvent event, Player p, Player t) {
 
+        //int slot = event.getRawSlot();
+
         ItemStack item = event.getCursor();
         Player aux = (Player) event.getWhoClicked();
 
         if(p.equals(aux)) {
+
+            /*int amount = p.getOpenInventory().getTopInventory().getItem(slot).getAmount();
+            ItemStack item = new ItemStack(event.getCursor().getType(), amount);*/
 
             p.sendMessage("aux project p");
 
@@ -37,6 +42,9 @@ public class ItemProjector {
             }
 
         } else if(t.equals(aux)) {
+
+            /*int amount = t.getOpenInventory().getTopInventory().getItem(slot).getAmount();
+            ItemStack item = new ItemStack(event.getCursor().getType(), amount);*/
 
             t.sendMessage("aux project t");
 
