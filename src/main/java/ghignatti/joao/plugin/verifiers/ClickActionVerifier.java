@@ -1,10 +1,12 @@
 package ghignatti.joao.plugin.verifiers;
 
 import ghignatti.joao.plugin.action.ItemProjector;
+import ghignatti.joao.plugin.action.ItemSwap;
 import ghignatti.joao.plugin.action.ItemUnprojector;
 import ghignatti.joao.plugin.array.ArrayInTrading;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -45,6 +47,7 @@ public class ClickActionVerifier {
         int slot = event.getRawSlot();
         Inventory inv = event.getInventory();
         InventoryAction inventoryAction = event.getAction();
+        //ClickType clickType = event.getClick();
 
         if(aux.equals(p)) {
 
@@ -54,9 +57,17 @@ public class ClickActionVerifier {
 
                 p.sendMessage("Chest click");
 
-                if(inventoryAction == InventoryAction.PLACE_ALL ||
+                if(inventoryAction == InventoryAction.SWAP_WITH_CURSOR |
+                        inventoryAction == InventoryAction.HOTBAR_SWAP) {
+
+                    p.sendMessage("Swap");
+
+                    ItemSwap.getInstance().doSwap(event, p, t);
+
+                } else if(inventoryAction == InventoryAction.PLACE_ALL ||
                         inventoryAction == InventoryAction.PLACE_ONE ||
-                        inventoryAction == InventoryAction.PLACE_SOME) {
+                        inventoryAction == InventoryAction.PLACE_SOME ||
+                        inventoryAction == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
 
                     p.sendMessage("Move to other inventory");
 
