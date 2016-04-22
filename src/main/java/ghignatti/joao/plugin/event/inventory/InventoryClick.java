@@ -15,9 +15,10 @@ public class InventoryClick implements Listener {
 
         if(event.getInventory().getType() == InventoryType.CHEST) {
 
-            if (PickUpVerifier.getInstance().cancelClick(event)) {
+            if(PickUpVerifier.getInstance().cancelClick(event)) {
 
                 event.setCancelled(true);
+
             } else {
 
                 ClickActionVerifier.getInstance().verifyAction(event);

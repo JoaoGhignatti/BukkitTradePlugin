@@ -1,5 +1,6 @@
 package ghignatti.joao.plugin.utilities;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class InTrading {
@@ -11,27 +12,27 @@ public class InTrading {
         setStatus(status);
     }
 
-    private Player player;
-    private Player target;
+    private String player;
+    private String target;
 
     private boolean status;
 
     //Player
     private void setPlayer(Player player) {
-        this.player = player;
+        this.player = player.getName();
     }
 
     public Player getPlayer() {
-        return player;
+        return Bukkit.getPlayer(player);
     }
 
     //Target
     private void setTarget(Player target) {
-        this.target = target;
+        this.target = target.getName();
     }
 
     public Player getTarget() {
-        return target;
+        return Bukkit.getPlayer(target);
     }
 
     //Status

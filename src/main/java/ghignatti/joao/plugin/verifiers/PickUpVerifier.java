@@ -43,6 +43,7 @@ public class PickUpVerifier {
                 if(slot < inv.getSize()) {
 
                     if(event.getRawSlot() == 29) {
+
                         ItemStack emeraldBlock = new InvSetter().nameItem(new ItemStack(Material.EMERALD_BLOCK), player.getName() + " escolha.");
                         target.getOpenInventory().getTopInventory().setItem(30, emeraldBlock);
 

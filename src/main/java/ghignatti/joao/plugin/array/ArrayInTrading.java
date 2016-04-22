@@ -1,6 +1,7 @@
 package ghignatti.joao.plugin.array;
 
 import ghignatti.joao.plugin.utilities.InTrading;
+
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
