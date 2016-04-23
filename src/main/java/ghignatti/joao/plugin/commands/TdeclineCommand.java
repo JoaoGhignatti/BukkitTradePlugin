@@ -29,7 +29,7 @@ public class TdeclineCommand implements CommandExecutor {
             Player p = arrayTradeRequisition.requisitionArray.get(index).getPlayer();
 
             p.sendMessage(ChatColor.RED + t.getName() + " recusou sua solicitação de troca.");
-            t.sendMessage(ChatColor.RED + "Você recusou a solicitação de troca de " + p.getName());
+            t.sendMessage(ChatColor.RED + "Você recusou a solicitação de troca de " + p.getName() + ".");
 
             arrayTradeRequisition.requisitionArray.remove(index);
         } else {
@@ -40,7 +40,7 @@ public class TdeclineCommand implements CommandExecutor {
         return true;
     }
 
-    private int findPositionInRequestArray(Player t) {
+    int findPositionInRequestArray(Player t) {
 
         for(int i = arrayTradeRequisition.requisitionArray.size()-1; i>=0; i--) {
 
