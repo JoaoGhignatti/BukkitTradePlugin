@@ -3,6 +3,7 @@ package ghignatti.joao.plugin.action;
 import ghignatti.joao.plugin.utilities.SlotFinder;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -18,45 +19,56 @@ public class ItemProjector {
 
     public void doProjection(InventoryClickEvent event, Player p, Player t) {
 
-        //int slot = event.getRawSlot();
+        ItemStack item;
 
-        ItemStack item = event.getCursor();
         Player aux = (Player) event.getWhoClicked();
+
+        if(event.getClick() == ClickType.RIGHT) {
+
+            item = new ItemStack(event.getCursor().getType(), 1);
+
+        } else {
+
+            item = event.getCursor();
+        }
 
         if(p.equals(aux)) {
 
-            /*int amount = p.getOpenInventory().getTopInventory().getItem(slot).getAmount();
-            ItemStack item = new ItemStack(event.getCursor().getType(), amount);*/
-
-            p.sendMessage("aux project p");
-
-            int index = SlotFinder.getInstance().getSearchSlot(t, "target", null, false);
-
-            p.sendMessage("index " + index);
+            int index = SlotFinder.getInstance().getSearchSlot(t, "target", item, true);
 
             if(index != -1) {
 
-                p.sendMessage("index != -1");
+                int amount = t.getOpenInventory().getTopInventory().getItem(index).getAmount();
 
-                t.getOpenInventory().getTopInventory().setItem(index, item);
+                t.getOpenInventory().getTopInventory().setItem(index, new ItemStack(item.getType(), amount + item.getAmount()));
+
+            } else {
+
+                index = SlotFinder.getInstance().getSearchSlot(t, "target", null, false);
+
+                if (index != -1) {
+
+                    t.getOpenInventory().getTopInventory().setItem(index, item);
+                }
             }
-
         } else if(t.equals(aux)) {
 
-            /*int amount = t.getOpenInventory().getTopInventory().getItem(slot).getAmount();
-            ItemStack item = new ItemStack(event.getCursor().getType(), amount);*/
-
-            t.sendMessage("aux project t");
-
-            int index = SlotFinder.getInstance().getSearchSlot(p, "sender", null, false);
-
-            t.sendMessage("index " + index);
+            int index = SlotFinder.getInstance().getSearchSlot(p, "sender", item, true);
 
             if(index != -1) {
 
-                t.sendMessage("index != -1");
+                int amount = t.getOpenInventory().getTopInventory().getItem(index).getAmount();
 
-                p.getOpenInventory().getTopInventory().setItem(index, item);
+                p.getOpenInventory().getTopInventory().setItem(index, new ItemStack(item.getType(), amount + item.getAmount()));
+
+            } else {
+
+                index = SlotFinder.getInstance().getSearchSlot(p, "sender", null, false);
+
+                if (index != -1) {
+
+                    p.getOpenInventory().getTopInventory().setItem(index, item);
+                }
             }
         }
     }

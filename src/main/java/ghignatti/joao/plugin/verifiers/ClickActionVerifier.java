@@ -1,8 +1,6 @@
 package ghignatti.joao.plugin.verifiers;
 
-import ghignatti.joao.plugin.action.ItemProjector;
-import ghignatti.joao.plugin.action.ItemSwap;
-import ghignatti.joao.plugin.action.ItemUnprojector;
+import ghignatti.joao.plugin.action.*;
 import ghignatti.joao.plugin.array.ArrayInTrading;
 
 import org.bukkit.entity.Player;
@@ -10,6 +8,7 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 public class ClickActionVerifier {
     private static ClickActionVerifier ourInstance = new ClickActionVerifier();
@@ -35,32 +34,27 @@ public class ClickActionVerifier {
         Player t = arrayInTrading.tradingHash.get(aux).getTarget();
 
         if(p == null || t == null) {
-            aux.sendMessage("p ou t null");
             return;
         }
 
         if(!(arrayInTrading.tradingHash.get(p).isStatus())) {
-            p.sendMessage("Status false");
             return;
         }
 
         int slot = event.getRawSlot();
         Inventory inv = event.getInventory();
         InventoryAction inventoryAction = event.getAction();
-        //ClickType clickType = event.getClick();
 
-        if(aux.equals(p)) {
+        if(aux.equals(p) || aux.equals(t)) {
 
-            p.sendMessage("aux é p");
+            if(event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT) {
+                return;
+            }
 
             if(slot < inv.getSize()) {
 
-                p.sendMessage("Chest click");
-
-                if(inventoryAction == InventoryAction.SWAP_WITH_CURSOR |
+                if(inventoryAction == InventoryAction.SWAP_WITH_CURSOR ||
                         inventoryAction == InventoryAction.HOTBAR_SWAP) {
-
-                    p.sendMessage("Swap");
 
                     ItemSwap.getInstance().doSwap(event, p, t);
 
@@ -69,7 +63,54 @@ public class ClickActionVerifier {
                         inventoryAction == InventoryAction.PLACE_SOME ||
                         inventoryAction == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
 
-                    p.sendMessage("Move to other inventory");
+                    ItemProjector.getInstance().doProjection(event, p, t);
+
+                } else if(inventoryAction == InventoryAction.PICKUP_ALL ||
+                        inventoryAction == InventoryAction.PICKUP_HALF ||
+                        inventoryAction == InventoryAction.PICKUP_ONE ||
+                        inventoryAction == InventoryAction.PICKUP_SOME) {
+
+                    ItemUnprojector.getInstance().doUnprojection(event, p, t);
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+                if(inventoryAction == InventoryAction.SWAP_WITH_CURSOR |
+                        inventoryAction == InventoryAction.HOTBAR_SWAP) {
+
+                    ItemSwap.getInstance().doSwap(event, p, t);
+
+                } else if(inventoryAction == InventoryAction.PLACE_ALL ||
+                        inventoryAction == InventoryAction.PLACE_ONE ||
+                        inventoryAction == InventoryAction.PLACE_SOME ||
+                        inventoryAction == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
 
                     ItemProjector.getInstance().doProjection(event, p, t);
 
@@ -78,32 +119,17 @@ public class ClickActionVerifier {
                         inventoryAction == InventoryAction.PICKUP_ONE ||
                         inventoryAction == InventoryAction.PICKUP_SOME) {
 
-                    p.sendMessage("Pick");
-
                     ItemUnprojector.getInstance().doUnprojection(event, p, t);
                 }
-            }
-        } else if(aux.equals(t)) {
+            } else {
 
-            t.sendMessage("aux é t");
+                if(clickType == ClickType.SHIFT_LEFT || clickType == ClickType.SHIFT_RIGHT) {
 
-            if(slot < inv.getSize()) {
+                    ItemStack itemStack = event.getCurrentItem();
 
-                t.sendMessage("Chest click");
 
-                if(inventoryAction == InventoryAction.PLACE_ALL) {
-
-                    t.sendMessage("Move to other inventory");
-
-                    ItemProjector.getInstance().doProjection(event, p, t);
-
-                } else {
-
-                    t.sendMessage("Pick all");
-
-                    ItemUnprojector.getInstance().doUnprojection(event, p, t);
                 }
             }
         }
     }
-}
+}*/

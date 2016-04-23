@@ -5,6 +5,7 @@ import ghignatti.joao.plugin.array.ArrayInTrading;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
@@ -26,19 +27,25 @@ public class PickUpVerifier {
 
         Player aux = (Player) event.getWhoClicked();
 
-        Player player = arrayInTrading.tradingHash.get(aux).getPlayer();
-        Player target = arrayInTrading.tradingHash.get(aux).getTarget();
-
-        if(player == null || target == null) {
-            return false;
-        }
-
         Inventory inv = event.getInventory();
         int slot = event.getRawSlot();
 
-        if(arrayInTrading.tradingHash.get(player).isStatus()) {
+        if(arrayInTrading.tradingHash.get(aux).isStatus()) {
+
+            Player player = arrayInTrading.tradingHash.get(aux).getPlayer();
+            Player target = arrayInTrading.tradingHash.get(aux).getTarget();
+
+            if(player == null || target == null) {
+                return false;
+            }
 
             if(aux.equals(player)) {
+
+                if((event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT)
+                        && event.getInventory().getName().equals("Troca " + player.getName() + "/" + target.getName())) {
+
+                    return true;
+                }
 
                 if(slot < inv.getSize()) {
 
@@ -63,6 +70,12 @@ public class PickUpVerifier {
                 }
 
             } else if(aux.equals(target)) {
+
+                if((event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT)
+                        && event.getInventory().getName().equals("Troca " + player.getName() + "/" + target.getName())) {
+
+                    return true;
+                }
 
                 if(slot < inv.getSize()) {
 

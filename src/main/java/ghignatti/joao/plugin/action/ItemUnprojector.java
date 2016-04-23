@@ -33,7 +33,6 @@ public class ItemUnprojector {
 
                 t.getOpenInventory().getTopInventory().removeItem(item);
             }
-
         } else if(t.equals(aux)) {
 
             t.sendMessage("aux unproject t");
@@ -44,7 +43,6 @@ public class ItemUnprojector {
 
                 p.getOpenInventory().getTopInventory().removeItem(item);
             }
-
         }
     }
 }
