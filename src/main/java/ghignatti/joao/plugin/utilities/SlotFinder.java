@@ -13,7 +13,7 @@ public class SlotFinder {
     private SlotFinder() {
     }
 
-    private int searchSlot(Player p, String player, ItemStack item, boolean unproject) {
+    private int searchSlot(Player aux, String player, ItemStack item, boolean unproject) {
 
         if(player.equals("sender")) {
 
@@ -21,17 +21,23 @@ public class SlotFinder {
 
                 if(i%9 > 4 && i != 32) {
 
-                    if(p.getOpenInventory().getTopInventory() != null) {
+                    if(aux.getOpenInventory().getTopInventory() != null) {
 
-                        if (p.getOpenInventory().getTopInventory().getItem(i) == item) {
+                        if (!unproject) {
 
-                            return i;
-
-                        } else if(unproject) {
-
-                            if(p.getOpenInventory().getTopInventory().getItem(i).getType() == item.getType()) {
+                            if(aux.getOpenInventory().getTopInventory().getItem(i) == item) {
 
                                 return i;
+                            }
+
+                        } else {
+
+                            if(aux.getOpenInventory().getTopInventory().getItem(i) != null) {
+
+                                if(aux.getOpenInventory().getTopInventory().getItem(i).getType() == item.getType()) {
+
+                                    return i;
+                                }
                             }
                         }
                     }
@@ -43,20 +49,20 @@ public class SlotFinder {
 
                 if(i%9 < 4 && i!= 30) {
 
-                    if(p.getOpenInventory().getTopInventory() != null) {
+                    if(aux.getOpenInventory().getTopInventory() != null) {
 
                         if (!unproject) {
 
-                            if(p.getOpenInventory().getTopInventory().getItem(i) == item) {
+                            if(aux.getOpenInventory().getTopInventory().getItem(i) == item) {
 
                                 return i;
                             }
 
                         } else {
 
-                            if(p.getOpenInventory().getTopInventory().getItem(i) != null) {
+                            if(aux.getOpenInventory().getTopInventory().getItem(i) != null) {
 
-                                if(p.getOpenInventory().getTopInventory().getItem(i).getType() == item.getType()) {
+                                if(aux.getOpenInventory().getTopInventory().getItem(i).getType() == item.getType()) {
 
                                     return i;
                                 }
