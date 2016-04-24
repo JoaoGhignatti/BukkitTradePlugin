@@ -23,7 +23,7 @@ public class SlotFinder {
 
                     if(aux.getOpenInventory().getTopInventory() != null) {
 
-                        if (!unproject) {
+                        if(!unproject) {
 
                             if(aux.getOpenInventory().getTopInventory().getItem(i) == item) {
 
@@ -76,7 +76,7 @@ public class SlotFinder {
         return -1;
     }
 
-    public int getSearchSlot(Player p, String player, ItemStack item, boolean unproject) {
-        return searchSlot(p, player, item, unproject);
+    public int getSearchSlot(Player aux, String player, ItemStack item, boolean unproject) {
+        return searchSlot(aux, player, item, unproject);
     }
 }

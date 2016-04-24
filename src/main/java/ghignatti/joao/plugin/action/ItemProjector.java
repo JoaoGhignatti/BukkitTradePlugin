@@ -57,7 +57,7 @@ public class ItemProjector {
 
             if(index != -1) {
 
-                int amount = t.getOpenInventory().getTopInventory().getItem(index).getAmount();
+                int amount = p.getOpenInventory().getTopInventory().getItem(index).getAmount();
 
                 p.getOpenInventory().getTopInventory().setItem(index, new ItemStack(item.getType(), amount + item.getAmount()));
 
