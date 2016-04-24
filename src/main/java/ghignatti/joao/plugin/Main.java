@@ -5,6 +5,7 @@ import ghignatti.joao.plugin.commands.TdeclineCommand;
 import ghignatti.joao.plugin.commands.TignoreCommand;
 import ghignatti.joao.plugin.commands.TradeCommand;
 import ghignatti.joao.plugin.event.inventory.InventoryClick;
+import ghignatti.joao.plugin.event.inventory.InventoryClose;
 import ghignatti.joao.plugin.vaulthook.VaultHook;
 
 import org.bukkit.Bukkit;
@@ -18,6 +19,7 @@ public class Main extends JavaPlugin {
         VaultHook.getInstance().startHook(Bukkit.getServer());
 
         getServer().getPluginManager().registerEvents(new InventoryClick(), this);
+        getServer().getPluginManager().registerEvents(new InventoryClose(), this);
 
         getCommand("trade").setExecutor(new TradeCommand());
         getCommand("taccept").setExecutor(new TacceptCommand());

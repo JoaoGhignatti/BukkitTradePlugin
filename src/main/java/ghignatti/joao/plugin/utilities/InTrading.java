@@ -43,4 +43,6 @@ public class InTrading {
     public boolean isStatus() {
         return status;
     }
+
+    //
 }
