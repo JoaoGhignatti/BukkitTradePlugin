@@ -10,6 +10,9 @@ public class TradeAction {
 
         new InventoryCloseAction(t, p);
 
+        p.sendMessage("Troca feita!");
+        t.sendMessage("Troca feita!");
+
         ArrayInTrading.getInstance().tradingHash.get(p).setStatus(false);
         ArrayInTrading.getInstance().tradingHash.get(t).setStatus(false);
 

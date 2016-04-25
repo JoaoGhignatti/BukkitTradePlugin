@@ -3,6 +3,8 @@ package ghignatti.joao.plugin.verifiers;
 import ghignatti.joao.plugin.action.*;
 import ghignatti.joao.plugin.array.ArrayInTrading;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
@@ -53,6 +55,12 @@ public class ClickActionVerifier {
 
             if(slot < inv.getSize()) {
 
+                if(arrayInTrading.tradingHash.get(p).isSenderGreenBlock() ||
+                        arrayInTrading.tradingHash.get(p).isTargetGreenBlock()) {
+
+                    resetButtons(p, t);
+                }
+
                 if(inventoryAction == InventoryAction.SWAP_WITH_CURSOR ||
                         inventoryAction == InventoryAction.HOTBAR_SWAP) {
 
@@ -75,61 +83,23 @@ public class ClickActionVerifier {
             }
         }
     }
-}
 
+    private void resetButtons(Player p, Player t) {
 
+        ArrayInTrading arrayInTrading = ArrayInTrading.getInstance();
 
+        arrayInTrading.tradingHash.get(p).setSenderGreenBlock(false);
+        arrayInTrading.tradingHash.get(p).setTargetGreenBlock(false);
 
+        arrayInTrading.tradingHash.get(t).setSenderGreenBlock(false);
+        arrayInTrading.tradingHash.get(t).setTargetGreenBlock(false);
 
+        ItemStack stone1 = new InvSetter().nameItem(new ItemStack(Material.STONE), ChatColor.BLUE + p.getName() + " escolha.");
+        t.getOpenInventory().getTopInventory().setItem(30, stone1);
+        t.updateInventory();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-                if(inventoryAction == InventoryAction.SWAP_WITH_CURSOR |
-                        inventoryAction == InventoryAction.HOTBAR_SWAP) {
-
-                    ItemSwap.getInstance().doSwap(event, p, t);
-
-                } else if(inventoryAction == InventoryAction.PLACE_ALL ||
-                        inventoryAction == InventoryAction.PLACE_ONE ||
-                        inventoryAction == InventoryAction.PLACE_SOME ||
-                        inventoryAction == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
-
-                    ItemProjector.getInstance().doProjection(event, p, t);
-
-                } else if(inventoryAction == InventoryAction.PICKUP_ALL ||
-                        inventoryAction == InventoryAction.PICKUP_HALF ||
-                        inventoryAction == InventoryAction.PICKUP_ONE ||
-                        inventoryAction == InventoryAction.PICKUP_SOME) {
-
-                    ItemUnprojector.getInstance().doUnprojection(event, p, t);
-                }
-            } else {
-
-                if(clickType == ClickType.SHIFT_LEFT || clickType == ClickType.SHIFT_RIGHT) {
-
-                    ItemStack itemStack = event.getCurrentItem();
-
-
-                }
-            }
-        }
+        ItemStack stone2 = new InvSetter().nameItem(new ItemStack(Material.STONE), ChatColor.BLUE + t.getName() + " escolha.");
+        p.getOpenInventory().getTopInventory().setItem(32, stone2);
+        p.updateInventory();
     }
-}*/
+}

@@ -4,6 +4,7 @@ import ghignatti.joao.plugin.action.InvSetter;
 import ghignatti.joao.plugin.action.TradeAction;
 import ghignatti.joao.plugin.array.ArrayInTrading;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -63,14 +64,16 @@ public class PickUpVerifier {
                             arrayInTrading.tradingHash.get(target).setSenderGreenBlock(true);
                         }
 
-                        ItemStack emeraldBlock = new InvSetter().nameItem(new ItemStack(Material.EMERALD_BLOCK), player.getName() + " escolha.");
+                        ItemStack emeraldBlock = new InvSetter().nameItem(new ItemStack(Material.EMERALD_BLOCK),
+                                ChatColor.GREEN + player.getName() + " escolha.");
                         target.getOpenInventory().getTopInventory().setItem(30, emeraldBlock);
 
                         return true;
 
                     } else if(event.getRawSlot() == 30) {
 
-                        ItemStack redstoneBlock = new InvSetter().nameItem(new ItemStack(Material.REDSTONE_BLOCK), player.getName() + " escolha.");
+                        ItemStack redstoneBlock = new InvSetter().nameItem(new ItemStack(Material.REDSTONE_BLOCK),
+                                ChatColor.RED + player.getName() + " escolha.");
                         target.getOpenInventory().getTopInventory().setItem(30, redstoneBlock);
 
                         return true;
@@ -104,14 +107,16 @@ public class PickUpVerifier {
                             arrayInTrading.tradingHash.get(target).setTargetGreenBlock(true);
                         }
 
-                        ItemStack emeraldBlock = new InvSetter().nameItem(new ItemStack(Material.EMERALD_BLOCK), target.getName() + " escolha.");
+                        ItemStack emeraldBlock = new InvSetter().nameItem(new ItemStack(Material.EMERALD_BLOCK),
+                                ChatColor.GREEN + target.getName() + " escolha.");
                         player.getOpenInventory().getTopInventory().setItem(32, emeraldBlock);
 
                         return true;
 
                     } else if(event.getRawSlot() == 32) {
 
-                        ItemStack redstoneBlock = new InvSetter().nameItem(new ItemStack(Material.REDSTONE_BLOCK), target.getName() + " escolha.");
+                        ItemStack redstoneBlock = new InvSetter().nameItem(new ItemStack(Material.REDSTONE_BLOCK),
+                                ChatColor.RED + target.getName() + " escolha.");
                         player.getOpenInventory().getTopInventory().setItem(32, redstoneBlock);
 
                         return true;
