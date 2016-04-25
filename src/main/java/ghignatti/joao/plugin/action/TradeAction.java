@@ -1,6 +1,7 @@
 package ghignatti.joao.plugin.action;
 
 import ghignatti.joao.plugin.array.ArrayInTrading;
+
 import org.bukkit.entity.Player;
 
 public class TradeAction {
