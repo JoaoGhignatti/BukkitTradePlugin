@@ -5,17 +5,21 @@ import org.bukkit.entity.Player;
 
 public class InTrading {
 
-    public InTrading(Player player, Player target, boolean status) {
+    public InTrading(Player player, Player target) {
 
         setPlayer(player);
         setTarget(target);
-        setStatus(status);
+        setStatus(true);
+        setSenderGreenBlock(false);
+        setTargetGreenBlock(false);
     }
 
     private String player;
     private String target;
 
     private boolean status;
+    private boolean senderGreenBlock;
+    private boolean targetGreenBlock;
 
     //Player
     private void setPlayer(Player player) {
@@ -44,5 +48,21 @@ public class InTrading {
         return status;
     }
 
-    //
+    //Sender Green Block
+    public void setSenderGreenBlock(boolean greenBlock) {
+        this.senderGreenBlock = greenBlock;
+    }
+
+    public boolean isSenderGreenBlock() {
+        return senderGreenBlock;
+    }
+
+    //Target Green Block
+    public void setTargetGreenBlock(boolean greenBlock) {
+        this.targetGreenBlock = greenBlock;
+    }
+
+    public boolean isTargetGreenBlock() {
+        return targetGreenBlock;
+    }
 }

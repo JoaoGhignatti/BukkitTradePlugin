@@ -1,6 +1,7 @@
 package ghignatti.joao.plugin.verifiers;
 
 import ghignatti.joao.plugin.action.InvSetter;
+import ghignatti.joao.plugin.action.TradeAction;
 import ghignatti.joao.plugin.array.ArrayInTrading;
 
 import org.bukkit.Material;
@@ -51,6 +52,17 @@ public class PickUpVerifier {
 
                     if(event.getRawSlot() == 29) {
 
+                        if(arrayInTrading.tradingHash.get(player).isTargetGreenBlock()) {
+
+                            new TradeAction(player, target);
+                            return true;
+
+                        } else {
+
+                            arrayInTrading.tradingHash.get(player).setSenderGreenBlock(true);
+                            arrayInTrading.tradingHash.get(target).setSenderGreenBlock(true);
+                        }
+
                         ItemStack emeraldBlock = new InvSetter().nameItem(new ItemStack(Material.EMERALD_BLOCK), player.getName() + " escolha.");
                         target.getOpenInventory().getTopInventory().setItem(30, emeraldBlock);
 
@@ -80,6 +92,17 @@ public class PickUpVerifier {
                 if(slot < inv.getSize()) {
 
                     if(event.getRawSlot() == 33) {
+
+                        if(arrayInTrading.tradingHash.get(target).isSenderGreenBlock()) {
+
+                            new TradeAction(player, target);
+                            return true;
+
+                        } else {
+
+                            arrayInTrading.tradingHash.get(player).setTargetGreenBlock(true);
+                            arrayInTrading.tradingHash.get(target).setTargetGreenBlock(true);
+                        }
 
                         ItemStack emeraldBlock = new InvSetter().nameItem(new ItemStack(Material.EMERALD_BLOCK), target.getName() + " escolha.");
                         player.getOpenInventory().getTopInventory().setItem(32, emeraldBlock);

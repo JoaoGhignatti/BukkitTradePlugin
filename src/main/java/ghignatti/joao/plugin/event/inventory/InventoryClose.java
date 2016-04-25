@@ -24,24 +24,25 @@ public class InventoryClose implements Listener{
                 Player p = arrayInTrading.tradingHash.get(aux).getPlayer();
                 Player t = arrayInTrading.tradingHash.get(aux).getTarget();
 
-                if(!(event.getInventory().getName().equals("Troca " + p.getName() + "/" + t.getName()))) {
+                if(event.getInventory().getName().equals("Troca " + p.getName() + "/" + t.getName())) {
 
-                    return;
-                }
+                    if ((aux.equals(p) || aux.equals(t)) && arrayInTrading.tradingHash.get(aux).isStatus()) {
 
-                if((aux.equals(p) || aux.equals(t)) && arrayInTrading.tradingHash.get(aux).isStatus()) {
+                        new InventoryCloseAction(p, t);
 
-                    new InventoryCloseAction(p, t);
+                        ArrayInTrading.getInstance().tradingHash.get(p).setStatus(false);
+                        ArrayInTrading.getInstance().tradingHash.get(t).setStatus(false);
 
-                    ArrayInTrading.getInstance().tradingHash.remove(p);
-                    ArrayInTrading.getInstance().tradingHash.remove(t);
+                        ArrayInTrading.getInstance().tradingHash.remove(p);
+                        ArrayInTrading.getInstance().tradingHash.remove(t);
 
-                    if(aux.equals(p)) {
+                        if (aux.equals(p)) {
 
-                        t.closeInventory();
-                    } else {
+                            t.closeInventory();
+                        } else {
 
-                        p.closeInventory();
+                            p.closeInventory();
+                        }
                     }
                 }
             }

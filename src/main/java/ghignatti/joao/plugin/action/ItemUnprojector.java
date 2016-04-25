@@ -21,25 +21,15 @@ public class ItemUnprojector {
         Player aux = (Player) event.getWhoClicked();
         ItemStack item = event.getCurrentItem();
 
-        p.sendMessage("Item: " + item.toString());
-
         if(p.equals(aux)) {
 
-            p.sendMessage("aux unproject p");
-
             if(SlotFinder.getInstance().getSearchSlot(t, "target", item, true) != -1) {
-
-                p.sendMessage("Slot != -1");
 
                 t.getOpenInventory().getTopInventory().removeItem(item);
             }
         } else if(t.equals(aux)) {
 
-            t.sendMessage("aux unproject t");
-
             if(SlotFinder.getInstance().getSearchSlot(p, "sender", item, true) != -1) {
-
-                t.sendMessage("Slot != -1");
 
                 p.getOpenInventory().getTopInventory().removeItem(item);
             }

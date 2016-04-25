@@ -7,77 +7,77 @@ import java.util.ArrayList;
 
 public class InventoryCloseAction {
 
-    private ArrayList<ItemStack> senderArray = new ArrayList<ItemStack>();
-    private ArrayList<ItemStack> targetArray = new ArrayList<ItemStack>();
+    private ArrayList<ItemStack> esquerdaArray = new ArrayList<ItemStack>();
+    private ArrayList<ItemStack> direitaArray = new ArrayList<ItemStack>();
 
-    public InventoryCloseAction(Player p, Player t) {
+    public InventoryCloseAction(Player esquerda, Player direita) {
 
-        searchTopInv(p, t);
-        placeBackItens(p, senderArray);
-        placeBackItens(t, targetArray);
+        searchTopInv(esquerda, direita);
+        placeBackItens(esquerda, esquerdaArray);
+        placeBackItens(direita, direitaArray);
     }
 
-    private void searchTopInv(Player p, Player t) {
+    private void searchTopInv(Player esquerda, Player direita) {
 
         for(int i=0; i<36; i++) {
 
-            //p
+            //Esquerda
             if(i%9 < 4 && i != 29 && i != 30) {
 
-                ItemStack item = p.getOpenInventory().getTopInventory().getItem(i);
+                ItemStack item = esquerda.getOpenInventory().getTopInventory().getItem(i);
 
                 if(item != null) {
 
-                    if(senderArray.isEmpty()) {
+                    if(esquerdaArray.isEmpty()) {
 
-                        senderArray.add(item);
+                        esquerdaArray.add(item);
 
                     } else {
 
-                        int index = searchArray(item, senderArray);
+                        int index = searchArray(item, esquerdaArray);
 
                         if(index != -1) {
 
-                            int amount = senderArray.get(index).getAmount();
+                            int amount = esquerdaArray.get(index).getAmount();
 
                             ItemStack itemStack = new ItemStack(item.getType(), (amount + item.getAmount()));
 
-                            senderArray.remove(index);
-                            senderArray.add(itemStack);
+                            esquerdaArray.remove(index);
+                            esquerdaArray.add(itemStack);
 
                         } else {
 
-                            senderArray.add(item);
+                            esquerdaArray.add(item);
                         }
                     }
                 }
-            //t
+            //Direita
             } else if(i%9 > 4 && i != 32 && i != 33) {
 
-                ItemStack item = t.getOpenInventory().getTopInventory().getItem(i);
+                ItemStack item = direita.getOpenInventory().getTopInventory().getItem(i);
 
                 if(item != null) {
 
-                    if(targetArray.isEmpty()) {
+                    if(direitaArray.isEmpty()) {
 
-                        targetArray.add(item);
+                        direitaArray.add(item);
 
                     } else {
 
-                        int index = searchArray(item, targetArray);
+                        int index = searchArray(item, direitaArray);
 
                         if(index != -1) {
 
-                            int amount = targetArray.get(index).getAmount();
+                            int amount = direitaArray.get(index).getAmount();
 
                             ItemStack itemStack = new ItemStack(item.getType(), (amount + item.getAmount()));
 
-                            targetArray.remove(index);
-                            targetArray.add(itemStack);
+                            direitaArray.remove(index);
+                            direitaArray.add(itemStack);
 
                         } else {
 
-                            targetArray.add(item);
+                            direitaArray.add(item);
                         }
                     }
                 }

@@ -36,7 +36,7 @@ public class TacceptCommand implements CommandExecutor {
 
             ArrayInTrading arrayInTrading = ArrayInTrading.getInstance();
 
-            InTrading inTrading = new InTrading(player, target, true);
+            InTrading inTrading = new InTrading(player, target);
 
             arrayInTrading.tradingHash.put(player, inTrading);
             arrayInTrading.tradingHash.put(target, inTrading);
