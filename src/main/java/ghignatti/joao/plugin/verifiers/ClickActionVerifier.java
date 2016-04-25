@@ -32,53 +32,56 @@ public class ClickActionVerifier {
 
         ArrayInTrading arrayInTrading = ArrayInTrading.getInstance();
 
-        Player p = arrayInTrading.tradingHash.get(aux).getPlayer();
-        Player t = arrayInTrading.tradingHash.get(aux).getTarget();
+        if(arrayInTrading.tradingHash.containsKey(aux)) {
 
-        if(p == null || t == null) {
-            return;
-        }
+            Player p = arrayInTrading.tradingHash.get(aux).getPlayer();
+            Player t = arrayInTrading.tradingHash.get(aux).getTarget();
 
-        if(!(arrayInTrading.tradingHash.get(p).isStatus())) {
-            return;
-        }
-
-        int slot = event.getRawSlot();
-        Inventory inv = event.getInventory();
-        InventoryAction inventoryAction = event.getAction();
-
-        if(aux.equals(p) || aux.equals(t)) {
-
-            if(event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT) {
+            if(p == null || t == null) {
                 return;
             }
 
-            if(slot < inv.getSize()) {
+            if(!(arrayInTrading.tradingHash.get(p).isStatus())) {
+                return;
+            }
 
-                if(arrayInTrading.tradingHash.get(p).isSenderGreenBlock() ||
-                        arrayInTrading.tradingHash.get(p).isTargetGreenBlock()) {
+            int slot = event.getRawSlot();
+            Inventory inv = event.getInventory();
+            InventoryAction inventoryAction = event.getAction();
 
-                    resetButtons(p, t);
+            if(aux.equals(p) || aux.equals(t)) {
+
+                if(event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT) {
+                    return;
                 }
 
-                if(inventoryAction == InventoryAction.SWAP_WITH_CURSOR ||
-                        inventoryAction == InventoryAction.HOTBAR_SWAP) {
+                if(slot < inv.getSize()) {
 
-                    ItemSwap.getInstance().doSwap(event, p, t);
+                    if(arrayInTrading.tradingHash.get(p).isSenderGreenBlock() ||
+                            arrayInTrading.tradingHash.get(p).isTargetGreenBlock()) {
 
-                } else if(inventoryAction == InventoryAction.PLACE_ALL ||
-                        inventoryAction == InventoryAction.PLACE_ONE ||
-                        inventoryAction == InventoryAction.PLACE_SOME ||
-                        inventoryAction == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
+                        resetButtons(p, t);
+                    }
 
-                    ItemProjector.getInstance().doProjection(event, p, t);
+                    if(inventoryAction == InventoryAction.SWAP_WITH_CURSOR ||
+                            inventoryAction == InventoryAction.HOTBAR_SWAP) {
 
-                } else if(inventoryAction == InventoryAction.PICKUP_ALL ||
-                        inventoryAction == InventoryAction.PICKUP_HALF ||
-                        inventoryAction == InventoryAction.PICKUP_ONE ||
-                        inventoryAction == InventoryAction.PICKUP_SOME) {
+                        ItemSwap.getInstance().doSwap(event, p, t);
 
-                    ItemUnprojector.getInstance().doUnprojection(event, p, t);
+                    } else if(inventoryAction == InventoryAction.PLACE_ALL ||
+                            inventoryAction == InventoryAction.PLACE_ONE ||
+                            inventoryAction == InventoryAction.PLACE_SOME ||
+                            inventoryAction == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
+
+                        ItemProjector.getInstance().doProjection(event, p, t);
+
+                    } else if(inventoryAction == InventoryAction.PICKUP_ALL ||
+                            inventoryAction == InventoryAction.PICKUP_HALF ||
+                            inventoryAction == InventoryAction.PICKUP_ONE ||
+                            inventoryAction == InventoryAction.PICKUP_SOME) {
+
+                        ItemUnprojector.getInstance().doUnprojection(event, p, t);
+                    }
                 }
             }
         }

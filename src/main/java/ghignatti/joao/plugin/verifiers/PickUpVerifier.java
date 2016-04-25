@@ -32,98 +32,101 @@ public class PickUpVerifier {
         Inventory inv = event.getInventory();
         int slot = event.getRawSlot();
 
-        if(arrayInTrading.tradingHash.get(aux).isStatus()) {
+        if(arrayInTrading.tradingHash.containsKey(aux)) {
 
-            Player player = arrayInTrading.tradingHash.get(aux).getPlayer();
-            Player target = arrayInTrading.tradingHash.get(aux).getTarget();
+            if(arrayInTrading.tradingHash.get(aux).isStatus()) {
 
-            if(player == null || target == null) {
-                return false;
-            }
+                Player player = arrayInTrading.tradingHash.get(aux).getPlayer();
+                Player target = arrayInTrading.tradingHash.get(aux).getTarget();
 
-            if(aux.equals(player)) {
-
-                if((event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT)
-                        && event.getInventory().getName().equals("Troca " + player.getName() + "/" + target.getName())) {
-
-                    return true;
+                if(player == null || target == null) {
+                    return false;
                 }
 
-                if(slot < inv.getSize()) {
+                if(aux.equals(player)) {
 
-                    if(event.getRawSlot() == 29) {
-
-                        if(arrayInTrading.tradingHash.get(player).isTargetGreenBlock()) {
-
-                            new TradeAction(player, target);
-                            return true;
-
-                        } else {
-
-                            arrayInTrading.tradingHash.get(player).setSenderGreenBlock(true);
-                            arrayInTrading.tradingHash.get(target).setSenderGreenBlock(true);
-                        }
-
-                        ItemStack emeraldBlock = new InvSetter().nameItem(new ItemStack(Material.EMERALD_BLOCK),
-                                ChatColor.GREEN + player.getName() + " escolha.");
-                        target.getOpenInventory().getTopInventory().setItem(30, emeraldBlock);
-
-                        return true;
-
-                    } else if(event.getRawSlot() == 30) {
-
-                        ItemStack redstoneBlock = new InvSetter().nameItem(new ItemStack(Material.REDSTONE_BLOCK),
-                                ChatColor.RED + player.getName() + " escolha.");
-                        target.getOpenInventory().getTopInventory().setItem(30, redstoneBlock);
-
-                        return true;
-
-                    } else if(event.getRawSlot() % 9 > 3 && event.getRawSlot() != 29 && event.getRawSlot() != 30) {
+                    if((event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT)
+                            && event.getInventory().getName().equals("Troca " + player.getName() + "/" + target.getName())) {
 
                         return true;
                     }
-                }
 
-            } else if(aux.equals(target)) {
+                    if(slot < inv.getSize()) {
 
-                if((event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT)
-                        && event.getInventory().getName().equals("Troca " + player.getName() + "/" + target.getName())) {
+                        if(event.getRawSlot() == 29) {
 
-                    return true;
-                }
+                            if(arrayInTrading.tradingHash.get(player).isTargetGreenBlock()) {
 
-                if(slot < inv.getSize()) {
+                                new TradeAction(player, target);
+                                return true;
 
-                    if(event.getRawSlot() == 33) {
+                            } else {
 
-                        if(arrayInTrading.tradingHash.get(target).isSenderGreenBlock()) {
+                                arrayInTrading.tradingHash.get(player).setSenderGreenBlock(true);
+                                arrayInTrading.tradingHash.get(target).setSenderGreenBlock(true);
+                            }
 
-                            new TradeAction(player, target);
+                            ItemStack emeraldBlock = new InvSetter().nameItem(new ItemStack(Material.EMERALD_BLOCK),
+                                    ChatColor.GREEN + player.getName() + " escolha.");
+                            target.getOpenInventory().getTopInventory().setItem(30, emeraldBlock);
+
                             return true;
 
-                        } else {
+                        } else if(event.getRawSlot() == 30) {
 
-                            arrayInTrading.tradingHash.get(player).setTargetGreenBlock(true);
-                            arrayInTrading.tradingHash.get(target).setTargetGreenBlock(true);
+                            ItemStack redstoneBlock = new InvSetter().nameItem(new ItemStack(Material.REDSTONE_BLOCK),
+                                    ChatColor.RED + player.getName() + " escolha.");
+                            target.getOpenInventory().getTopInventory().setItem(30, redstoneBlock);
+
+                            return true;
+
+                        } else if(event.getRawSlot() % 9 > 3 && event.getRawSlot() != 29 && event.getRawSlot() != 30) {
+
+                            return true;
                         }
+                    }
 
-                        ItemStack emeraldBlock = new InvSetter().nameItem(new ItemStack(Material.EMERALD_BLOCK),
-                                ChatColor.GREEN + target.getName() + " escolha.");
-                        player.getOpenInventory().getTopInventory().setItem(32, emeraldBlock);
+                } else if(aux.equals(target)) {
 
-                        return true;
-
-                    } else if(event.getRawSlot() == 32) {
-
-                        ItemStack redstoneBlock = new InvSetter().nameItem(new ItemStack(Material.REDSTONE_BLOCK),
-                                ChatColor.RED + target.getName() + " escolha.");
-                        player.getOpenInventory().getTopInventory().setItem(32, redstoneBlock);
+                    if((event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT)
+                            && event.getInventory().getName().equals("Troca " + player.getName() + "/" + target.getName())) {
 
                         return true;
+                    }
 
-                    } else if(event.getRawSlot() % 9 < 5 && event.getRawSlot() != 32 && event.getRawSlot() != 33) {
+                    if(slot < inv.getSize()) {
 
-                        return true;
+                        if(event.getRawSlot() == 33) {
+
+                            if(arrayInTrading.tradingHash.get(target).isSenderGreenBlock()) {
+
+                                new TradeAction(player, target);
+                                return true;
+
+                            } else {
+
+                                arrayInTrading.tradingHash.get(player).setTargetGreenBlock(true);
+                                arrayInTrading.tradingHash.get(target).setTargetGreenBlock(true);
+                            }
+
+                            ItemStack emeraldBlock = new InvSetter().nameItem(new ItemStack(Material.EMERALD_BLOCK),
+                                    ChatColor.GREEN + target.getName() + " escolha.");
+                            player.getOpenInventory().getTopInventory().setItem(32, emeraldBlock);
+
+                            return true;
+
+                        } else if(event.getRawSlot() == 32) {
+
+                            ItemStack redstoneBlock = new InvSetter().nameItem(new ItemStack(Material.REDSTONE_BLOCK),
+                                    ChatColor.RED + target.getName() + " escolha.");
+                            player.getOpenInventory().getTopInventory().setItem(32, redstoneBlock);
+
+                            return true;
+
+                        } else if(event.getRawSlot() % 9 < 5 && event.getRawSlot() != 32 && event.getRawSlot() != 33) {
+
+                            return true;
+                        }
                     }
                 }
             }
